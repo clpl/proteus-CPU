@@ -14,19 +14,23 @@ __指令集__：
 
 _必需_：
 
-* STO (XXXX), R_i
-* LAD R_i, (XXXX)
-* ADD R_i
-* SUB R_i
-* JMP XXXX
-* CLA
+序号 | 指令 | 功能 | 备注
+-----|-----|-----|----
+   1  |STO (XXXX), R\_i |  R\_i -> 存储器  | 
+   2  |LAD R\_i, (XXXX) |  存储器 -> R\_i  | 
+   3  |ADD R\_i |  AC+R\_i -> AC  | 
+   4  |SUB R\_i |  AC-R\_i -> AC  | 
+   5  |JMP XXXX |  PC <- XXXXH  |  64KB
+   6  |CLA |  AC <- 0000H  | 
 
 _可选_：
 
-* JC XX
-* IRET
-* PUSH R_i
-* POP R_i
+序号 | 指令 | 功能 | 备注
+-----|-----|-----|----
+  7  |JC XX | CF=1, PC <- PC+XX  |  XX: -128 ~ 127
+  8  |IRET |  中断返回  | 恢复现场
+  9  |PUSH R\_i | SP <- SP-1, (SP) <- R\_i  |  写一个机器字
+  10  |POP R\_i | R\_i <- (SP), SP <- SP+1  | 
 
 # 元件
 
