@@ -1,5 +1,5 @@
 # proteus-CPU
-we final big homework
+our final big homework
 # ROM 2764
 是一种存储芯片，用作存储数据<br>
 A0到A12为13条地址信号输入线，说明芯片容量为2的13次方，即8K<br>
