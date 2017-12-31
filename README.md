@@ -11,6 +11,8 @@ PSW | 未知 |
 CLOCK | 忽略 | NONE
 CONTROLLER | 困难 | ALL
 
+![附图](http://owvqyk7j0.bkt.clouddn.com/proteus-cpu-all.png)
+
 
 # proteus-CPU
 
