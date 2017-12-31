@@ -2,12 +2,12 @@
 
 内容 | 状态 | 分配
 ---  | --- | ---
-ALU | 已完成 | ALL
+ALU | 已完成 | CL封装
 RAM/ROM | 已完成 | CL
 OUT | 简单 | LSY
 REGISTER | 简单 | LSY
-PC | 简单 | 
-PSW | 未知 | 
+PC | 简单 | DY
+PSW | 未知 | DY
 CLOCK | 忽略 | NONE
 CONTROLLER | 困难 | ALL
 
