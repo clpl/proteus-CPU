@@ -44,6 +44,19 @@ _可选_：
 最后一起合并
 
 
+# 任务分配
+
+内容 | 状态 | 分配
+---  | --- | ---
+ALU | 已完成 | ALL
+RAM/ROM | 已完成 | CL
+OUT | 简单 | LSY
+REGISTER | 简单 | LSY
+PC | 简单 | 
+PSW | 未知 | 
+CLOCK | 忽略 | NONE
+CONTROLLER | 困难 | ALL
+
 # 元件
 
 ## ROM 2764
