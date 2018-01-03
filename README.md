@@ -4,8 +4,8 @@
 ---  | --- | ---
 ALU | 已完成 | CL封装
 RAM/ROM | 已完成 | CL
-OUT | 简单 | LSY
-REGISTER | 简单 | LSY
+I/O | 已完成 | LSY
+REGISTER | 已完成 | LSY
 PC | 简单 | DY
 PSW | 未知 | DY
 CLOCK | 忽略 | NONE
@@ -97,20 +97,38 @@ RAM_WE 同步 低有效 存储器写允许信号
 16位数据到BUS
 
 
-## REG_16
+## 寄存器组
 
-自制元件，16为寄存器
+四个16位寄存器 AC R1, R2, R3
 
-输入：
+自带四选一
 
-* BUS[0..15]
-* CLK XX沿
-* EN 高有效
-* CLR 高有效
+### 输入：
 
-输出：
+REG\_BUS_IN[0..15] 接总线
 
-* OBUS[0..15]
+REG_CLK 时钟信号 上升沿
+
+SEL_A[0,1] ALU A输入选择信号 AC为0
+
+SEL_B[0,1] ALU B输入选择信号 AC为0
+
+REG\_AC\_CLR 累加器AC清零
 
 
+### 输出：
 
+REG\_BUS\_OUT_A[0..15] 输入ALU A端
+
+REG\_BUS\_OUT_B[0..15] 输入ALU B端
+
+
+## I/O
+
+逻辑门输入，七段显示输出（七段显示接通用寄存器）
+
+输入寄存器RI，长期有效
+
+### 输出
+
+INPUT_BUS[0..15] 输入的数据，接总线
