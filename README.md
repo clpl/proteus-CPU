@@ -152,7 +152,7 @@ CLK：时钟信号，上升沿
 
 ### 优先级
 
-CLK $>$ CLR $>$ W/R $>$ PCINC$,$ LPC （全部为同步操作）
+CLK > CLR > W/R > PCINC, LPC （全部为同步操作）
 
 PCINC与LPC不可同时为1
 
@@ -173,4 +173,4 @@ CLK：时钟脉冲
 
 ### 优先级
 
-CLK $>$ CLR $>$ EN $>$ IC
+CLK > CLR > EN > IC
