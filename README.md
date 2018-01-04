@@ -6,8 +6,8 @@ ALU | 已完成 | CL封装
 RAM/ROM | 已完成 | CL
 I/O | 已完成 | LSY
 REGISTER | 已完成 | LSY
-PC | 简单 | DY
-PSW | 未知 | DY
+PC | 已完成 | DY
+PSW | 已完成 | DY
 CLOCK | 忽略 | NONE
 CONTROLLER | 困难 | ALL
 
