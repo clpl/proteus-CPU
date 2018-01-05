@@ -1,3 +1,5 @@
 # backup files
-Backup Of bighomework.pdsbak
+
+*.pdsbak
 *.workspace
+*.bak
