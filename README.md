@@ -6,8 +6,8 @@ ALU | 已完成 | CL封装
 RAM/ROM | 已完成 | CL
 I/O | 已完成 | LSY
 REGISTER | 已完成 | LSY
-PC | 简单 | DY
-PSW | 未知 | DY
+PC | 已完成 | DY
+PSW | 已完成 | DY
 CLOCK | 忽略 | NONE
 CONTROLLER | 困难 | ALL
 
@@ -82,15 +82,15 @@ DA_CLK, DB_CLK 暂存器A,B的时钟型号,收到信号即打入数据
 
 ### 输入
 
-MEM_OE 低有效 存储器的输出有效信号
+MEM_CE 高有效 存储器的片选信号
 
-R_WE 低有效 存储器写允许信号
+MEM_WE CE有效情况下，1为写，0为读
 
-LDAR 同步 低有效 AR置数信号
+AR_LD 同步 AR置数信号
 
-LDIR 同步 低有效 IR置数信号
+总线输入 16位地址
 
-RAM_WE 同步 低有效 存储器写允许信号
+CLK 全局时钟信号
 
 ### 输出
 
@@ -132,3 +132,45 @@ REG\_BUS\_OUT_B[0..15] 输入ALU B端
 ### 输出
 
 INPUT_BUS[0..15] 输入的数据，接总线
+
+
+## PC
+
+### 端口
+
+DBUS[0..15]：数据总线 输入/输出双向
+
+CLR：同步清零，高有效
+
+W/R：读/写使能，1为写有效，0为读有效
+
+PCINC：PC值+1，高有效
+
+LPC：同步置数，高有效
+
+CLK：时钟信号，上升沿
+
+### 优先级
+
+CLK > CLR > W/R > PCINC, LPC （全部为同步操作）
+
+PCINC与LPC不可同时为1
+
+W/R为写有效时，DBUS做输入；读有效时，DBUS做输出
+
+
+## PSW
+
+### 端口
+
+CLR：同步清零，高有效
+
+EN：使能信号，高有效
+
+IC：溢出（进位）信号，高有效
+
+CLK：时钟脉冲，上升沿
+
+### 优先级
+
+CLK > CLR > EN > IC
