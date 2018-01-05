@@ -109,25 +109,24 @@ REG\_BUS_IN[0..15] 接总线
 
 REG_CLK 时钟信号 上升沿
 
-SEL_A[0,1] ALU A输入选择信号 AC为0
-
-SEL_B[0,1] ALU B输入选择信号 AC为0
+SEL[0,1] 选择信号 输出到总线 AC为0
 
 REG\_AC\_CLR 累加器AC清零
 
 
 ### 输出：
 
-REG\_BUS\_OUT_A[0..15] 输入ALU A端
-
-REG\_BUS\_OUT_B[0..15] 输入ALU B端
-
+REG\_BUS\_OUT[0..15] 输出到总线
 
 ## I/O
 
 逻辑门输入，七段显示输出（七段显示接通用寄存器）
 
 输入寄存器RI，长期有效
+
+### 输入
+
+INPUT_EN 输入寄存器到总线的使能端，高有效
 
 ### 输出
 
