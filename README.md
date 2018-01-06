@@ -70,9 +70,9 @@ ALU_BUS 低有效，ALU运算结果到BUS的出口开关
 
 ALU_M, ALU_CN, ALU_S0, ALU_S1... 运算控制
 
-DA_CLK, DB_CLK 暂存器A,B的时钟型号,收到信号即打入数据
+ZREG1_SW,ZREG2_SW 高有效，暂存器1，2的使能端 
 
-16位数据到暂存器DA，DB
+16位数据到ZREG1,ZREG2
 
 ### 输出
 
