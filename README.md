@@ -39,8 +39,8 @@ __指令集__：
    7  |AND R\_i, R\_j |  R\_i & R\_j -> R\_i  | | 07 @@
    8  |XOR R\_i, R\_j |  R\_i ^ R\_j -> R\_i  | | 08 @@
    9  |CLA |  AC <- 0000H  | | 09 00
-   10  |JMP XXXX |  PC <- XXXXH  |  64KB | 0A 00 $$ $$
-   11  |JC XX | CF=1, PC <- PC+XX  |  XX: -128 ~ 127 | 0B 00 $$ $$
+   10  |JMP FLAG |  PC <- PC+offset  |  64KB | 0A 00 $$ $$
+   11  |JC FLAG | CF=1, PC <- PC+offset  | 64KB | 0B 00 $$ $$
    12  |IRET |  中断返回  | 恢复现场 | 0C 00
    13  |PUSH R\_i | SP <- SP-1, (SP) <- R\_i  |  写一个机器字 | 0D 0@
    14  |POP R\_i | R\_i <- (SP), SP <- SP+1  | | 0E 0@
