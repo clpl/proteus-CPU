@@ -32,18 +32,18 @@ __指令集__：
 -----|-----|-----|----|------
    1  |STO (XXXX), R\_i |  R\_i -> 存储器 | | 01 0@ $$ $$  
    2  |LAD R\_i, (XXXX) |  存储器 -> R\_i | | 02 0@ $$ $$ 
-   3  |ADD R\_i, R\_j |  R\_i + R\_j -> R\_i  | | 03 @@
-   4  |SUB R\_i, R\_j |  R\_i - R\_i -> R\_i  | | 04 @@
-   5  |AND R\_i, R\_j |  R\_i & R\_j -> R\_i  | | 05 @@
-   6  |XOR R\_i, R\_j |  R\_i ^ R\_j -> R\_i  | | 06 @@
-   7  |JMP XXXX |  PC <- XXXXH  |  64KB | 07 00 $$ $$
-   8  |CLA |  AC <- 0000H  | | 08 00
-   9  |JC XX | CF=1, PC <- PC+XX  |  XX: -128 ~ 127 | 09 00 $$ $$
-   10  |IRET |  中断返回  | 恢复现场 | 0A 00
-   11  |PUSH R\_i | SP <- SP-1, (SP) <- R\_i  |  写一个机器字 | 0B 0@
-   12  |POP R\_i | R\_i <- (SP), SP <- SP+1  | | 0C 0@
-   13  |RRMOV R\_i, R\_j | R\_j -> R\_i | | 0D @@
-   14  |IRMOV R\_i, XXXX | XXXX -> R\_i | | 0E 0@ $$ $$
+   3  |RRMOV R\_i, R\_j | R\_j -> R\_i | | 03 @@
+   4  |IRMOV R\_i, XXXX | XXXX -> R\_i | | 04 0@ $$ $$
+   5  |ADD R\_i, R\_j |  R\_i + R\_j -> R\_i  | | 05 @@
+   6  |SUB R\_i, R\_j |  R\_i - R\_i -> R\_i  | | 06 @@
+   7  |AND R\_i, R\_j |  R\_i & R\_j -> R\_i  | | 07 @@
+   8  |XOR R\_i, R\_j |  R\_i ^ R\_j -> R\_i  | | 08 @@
+   9  |CLA |  AC <- 0000H  | | 09 00
+   10  |JMP XXXX |  PC <- XXXXH  |  64KB | 0A 00 $$ $$
+   11  |JC XX | CF=1, PC <- PC+XX  |  XX: -128 ~ 127 | 0B 00 $$ $$
+   12  |IRET |  中断返回  | 恢复现场 | 0C 00
+   13  |PUSH R\_i | SP <- SP-1, (SP) <- R\_i  |  写一个机器字 | 0D 0@
+   14  |POP R\_i | R\_i <- (SP), SP <- SP+1  | | 0E 0@
    
 @:寄存器指示符（0<=@<=3)
 
