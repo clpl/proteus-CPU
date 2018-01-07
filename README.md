@@ -30,20 +30,20 @@ __指令集__：
 
 序号 | 指令 | 功能 | 备注 | 二进制形式（16进制）
 -----|-----|-----|----|------
-   1  |STO (XXXX), R\_i |  R\_i -> 存储器 | | 01 0X $$ $$  
-   2  |LAD R\_i, (XXXX) |  存储器 -> R\_i | | 02 0X $$ $$ 
-   3  |ADD R\_i R\_j |  R\_i + R\_j -> R\_i  | | 03 XX
-   4  |SUB R\_i R\_j |  R\_i - R\_i -> R\_i  | | 04 XX
-   5  |AND R\_i R\_j |  R\_i & R\_j -> R\_i  | | 05 XX
-   6  |XOR R\_i R\_j |  R\_i ^ R\_j -> R\_i  | | 06 XX
+   1  |STO (XXXX), R\_i |  R\_i -> 存储器 | | 01 0@ $$ $$  
+   2  |LAD R\_i, (XXXX) |  存储器 -> R\_i | | 02 0@ $$ $$ 
+   3  |ADD R\_i R\_j |  R\_i + R\_j -> R\_i  | | 03 @@
+   4  |SUB R\_i R\_j |  R\_i - R\_i -> R\_i  | | 04 @@
+   5  |AND R\_i R\_j |  R\_i & R\_j -> R\_i  | | 05 @@
+   6  |XOR R\_i R\_j |  R\_i ^ R\_j -> R\_i  | | 06 @@
    7  |JMP XXXX |  PC <- XXXXH  |  64KB | 07 00 $$ $$
    8  |CLA |  AC <- 0000H  | | 08 00
    9  |JC XX | CF=1, PC <- PC+XX  |  XX: -128 ~ 127 | 09 00 $$ $$
    10  |IRET |  中断返回  | 恢复现场 | 0A 00
-   11  |PUSH R\_i | SP <- SP-1, (SP) <- R\_i  |  写一个机器字 | 0B 0X
-   12  |POP R\_i | R\_i <- (SP), SP <- SP+1  | | 0C 0X 
+   11  |PUSH R\_i | SP <- SP-1, (SP) <- R\_i  |  写一个机器字 | 0B 0@
+   12  |POP R\_i | R\_i <- (SP), SP <- SP+1  | | 0C 0@
    
-X:寄存器指示符（0<=X<=3)
+@:寄存器指示符（0<=@<=3)
 
 $:立即数
 
