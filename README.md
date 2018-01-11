@@ -1,3 +1,5 @@
+微程序流程图：https://www.processon.com/diagraming/5a4f89e3e4b01acda58c3d8b
+微指令表：https://shimo.im/sheet/hZ38w8z0aB0NJl4N
 # 任务分配
 
 内容 | 状态 | 分配
