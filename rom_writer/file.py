@@ -1,27 +1,9 @@
 import sys
 
-CHIP_NUM = 3
-BITS = 8
-FILE_PREFIX = 'MicroPG'
-MPG_BIT = 15
-
-'''
-输入：
-
-ADDR XXXXH
-01串
-01串
-
-ADDR XXXXH
-01串
-01串
-……
-
-输出：
-
-每个芯片的asm文件
-
-'''
+CHIP_NUM = 3              # 芯片数
+BITS = 8                  # 芯片位数
+FILE_PREFIX = 'MicroPG'   # 文件名前缀
+MPG_BIT = 15              # 微指令位数
 
 def run(filename):
     fin = open(filename)
@@ -37,15 +19,15 @@ def run(filename):
         if line[0:4] == 'ADDR':
             for fout in file_list:
                 fout.write('\n' + 'ORG ' + line[4:9] + 'H\n')
-        else:
+        elif len(line) >= MPG_BIT:
             line = complete + line
             for index, fout in enumerate(file_list):
                 fout.write('    DB    ' + line[index*BITS:index*BITS+8] + 'B\n')
-        
+
     fin.close()
     for fout in file_list:
         fout.write('END')
         fout.close()
-    
+
 if __name__ == '__main__':
     run(sys.argv[1])
