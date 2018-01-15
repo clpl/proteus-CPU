@@ -75,8 +75,8 @@ const char *ins_id[15] = {
 	"jmp",		// jmp Offset: pc + Offset => pc
 	"jc",			// jc Offset: if C  pc + Offset => pc
 	"iret",		// iret
-	"push",		// push rA: rA => (sp - 2), sp - 2 => sp
-	"pop"			// pop rA: (sp) => rA, sp + 2 => sp
+	"push",		// push rA: rA => (sp - 2), sp - 1 => sp
+	"pop"			// pop rA: (sp) => rA, sp + 1 => sp
 };
 
 int find_ins(char *word) {
