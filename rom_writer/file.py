@@ -1,9 +1,9 @@
 import sys
 
-CHIP_NUM = 3              # 芯片数
-BITS = 8                  # 芯片位数
-FILE_PREFIX = 'MicroPG'   # 文件名前缀
-MPG_BIT = 15              # 微指令位数
+CHIP_NUM = 4                # 芯片数
+BITS = 8                    # 芯片位数
+FILE_PREFIX = 'MicroCode'   # 文件名前缀
+MPG_BIT = 29                # 微指令位数
 
 def run(filename):
     fin = open(filename)
