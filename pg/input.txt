@@ -21,3 +21,111 @@ end
   P:00
   N:000000
 end
+
+// POP
+010101
+  SP_OUT_EN
+  ZREG1_EN
+  N:011010
+end
+
+011010
+  SP_OUT_EN
+  AR_EN
+  N:010110
+end
+
+010110
+  CONST_EN
+  ZREG2_EN
+  N:010111
+end
+
+010111
+  ALU_EN
+  SP_IN_EN
+  N:011000
+end
+
+011000
+  REG_IN_EN
+  MEM_CE
+  N:000000
+end
+
+// PUSH
+010001
+  SP_OUT_EN
+  ZREG1_EN
+  N:010010
+end
+
+010010
+  CONST_EN
+  ZREG2_EN
+  N:010011
+end
+
+010011
+  ALU_EN
+  AR_EN
+  N:011011
+end
+
+011011
+  ALU_EN
+  SP_IN_EN
+  N:010100
+end
+
+010100
+  REG_OUT_EN
+  MEM_CE
+  MEM_WE
+  N:000000
+end
+
+// CLA
+010000
+  REG_AC_CLR
+  N:000000
+end
+
+// JC
+011100
+  P:01
+  N:001111
+end
+
+001111
+  PCINC
+  N:000000
+end
+
+// JMP
+001101
+  PC_EN
+  AR_EN
+  N:001101
+end
+
+001101
+  PC_OUT_EN
+  ZREG1_EN
+  N:011101
+end
+
+011101
+  MEM_CE
+  ZREG2_EN
+  N:001110
+end
+
+001110
+  PC_OUT_EN
+  LPC
+  ALU_EN
+  PCINC
+  N:000000
+end
+
