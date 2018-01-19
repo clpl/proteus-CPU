@@ -3,7 +3,7 @@ import sys
 CHIP_NUM = 4                # 芯片数
 BITS = 8                    # 芯片位数
 FILE_PREFIX = 'MicroCode'   # 文件名前缀
-MPG_BIT = 29                # 微指令位数
+MPG_BIT = 30                # 微指令位数
 
 def run(filename):
     fin = open(filename)
