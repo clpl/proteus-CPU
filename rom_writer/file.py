@@ -30,4 +30,4 @@ def run(filename):
         fout.close()
 
 if __name__ == '__main__':
-    run(sys.argv[1])
+    run('output.txt')
