@@ -112,7 +112,7 @@ int find_reg(char *word) {
 	return -1;
 }
 
-int ins_type_ri(char *line) {
+int ins_type_ri(char ins, char *line) {
 	while (line && *line == ' ') line++;
 	char rA = find_reg(line);
 	if (rA == -1) return 0;
@@ -129,15 +129,16 @@ int ins_type_ri(char *line) {
 	char v1 = val >> 8;
 	char v0 = val;
 //puts("instant");
-	if (pos + 3 > MAX_SIZE) return 0;
+	if (pos + 4 > MAX_SIZE) return 0;
 	instrs[pos++] = rA;
+	instrs[pos++] = ins;
 	instrs[pos++] = v0;
 	instrs[pos++] = v1;
 
 	return 1;
 }
 
-int ins_type_rr(char *line) {
+int ins_type_rr(char ins, char *line) {
 	while (line && *line == ' ') line++;
 	char rA = find_reg(line);
 	if (rA == -1) return 0;
@@ -147,41 +148,45 @@ int ins_type_rr(char *line) {
 	char rB = find_reg(line);
 	if (rB == -1) return 0;
 
-	if (pos == MAX_SIZE) return 0;
+	if (pos + 2 > MAX_SIZE) return 0;
 	instrs[pos++] = (rA << 4) | rB;
+	instrs[pos++] = ins;
 
 	return 1;
 }
 
-int ins_type_flag(char *line) {
+int ins_type_flag(char ins, char *line) {
 	while (line && *line == ' ') line++;
 
 	char *dest = flags[flag_cnt].flag;
 	while (line && *line != ' ') *dest++ = *line++;
 	flags[flag_cnt++].index = pos + 1;
 
-	if (pos + 3 > MAX_SIZE) return 0;
+	if (pos + 4 > MAX_SIZE) return 0;
 	instrs[pos++] = 0;
+	instrs[pos++] = ins;
 	instrs[pos++] = 0;
 	instrs[pos++] = 0;
 
 	return 1;
 }
 
-int ins_type_r(char *line) {
+int ins_type_r(char ins, char *line) {
 	while (line && *line == ' ') line++;
 
 	char rA = find_reg(line);
 	if (rA == -1) return 0;
 	
-	if (pos == MAX_SIZE) return 0;
+	if (pos + 2 > MAX_SIZE) return 0;
 	instrs[pos++] = rA;
+	instrs[pos++] = ins;
 	return 1;
 }
 
-int ins_type_s(char *line) {
-	if (pos == MAX_SIZE) return 0;
+int ins_type_s(char ins, char *line) {
+	if (pos + 2 > MAX_SIZE) return 0;
 	instrs[pos++] = 0;
+	instrs[pos++] = ins;
 	return 1;
 }
 
@@ -197,9 +202,6 @@ int translate(char *line) {
 	if (ins == -1) return 0;
 	while (line && *line != ' ') line++;
 
-	if (pos == MAX_SIZE) return 0;
-	instrs[pos++] = ins;
-
 //	puts("instruction");
 
 	int ret = 1;
@@ -207,7 +209,7 @@ int translate(char *line) {
 		case 1:
 		case 2:
 		case 4:
-			ret = ins_type_ri(line);
+			ret = ins_type_ri(ins, line);
 			break;
 
 		case 3:
@@ -215,21 +217,21 @@ int translate(char *line) {
 		case 6:
 		case 7:
 		case 8:
-			ret = ins_type_rr(line);
+			ret = ins_type_rr(ins, line);
 			break;
 
 		case 13:
 		case 14:
-			ret = ins_type_r(line);
+			ret = ins_type_r(ins, line);
 			break;
 
 		case 10:
 		case 11:
-			ret = ins_type_flag(line);
+			ret = ins_type_flag(ins, line);
 			break;
 
 		default:
-			ret = ins_type_s(line);
+			ret = ins_type_s(ins, line);
 			break;
 	}
 
@@ -261,12 +263,28 @@ int assemble() {
 	return 1;
 }
 
+void output(FILE *fpo) {
+	int i = 0;
+	while (i < pos) {
+		fprintf(fpo, "ADDR %04XH\n", i >> 1);
+		unsigned char x = instrs[i], y = instrs[i + 1];
+		for (int j = 7; j >= 0; j--) {
+			if (y >> j & 1) fprintf(fpo, "1"); else fprintf(fpo, "0");
+		}
+		for (int j = 7; j >= 0; j--) {
+			if (x >> j & 1) fprintf(fpo, "1"); else fprintf(fpo, "0");
+		}
+		fprintf(fpo, "\n");
+		i += 2;
+	}
+}
+
 void output_asci(FILE* fpo) {
 	int i = 0;
 	while (i < pos) {
 		fprintf(fpo, "%#06x: ", i);
-		unsigned char ins = instrs[i];
-		unsigned char x = instrs[i + 1];
+		unsigned char x = instrs[i];
+		unsigned char ins = instrs[i + 1];
 		fprintf(fpo, "%02x %02x", ins, x);
 		i += 2;
 		
@@ -274,7 +292,7 @@ void output_asci(FILE* fpo) {
 			unsigned char y = instrs[i];
 			unsigned char z = instrs[i + 1];
 			i += 2;
-			fprintf(fpo, " %02x %02x", y, z);
+			fprintf(fpo, " %02x %02x", z, y);
 		}
 		fprintf(fpo, "\n");
 	}
@@ -300,7 +318,7 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "Errors occured !\n");
 	}
 
-	fwrite(instrs, sizeof(char), pos, fpo1);
+	output(fpo1);
 	fclose(fpo1);
 
 	if (fpo2)	output_asci(fpo2);
