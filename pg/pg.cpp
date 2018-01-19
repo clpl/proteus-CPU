@@ -29,7 +29,7 @@ void init(ifstream &fin) {
 	}
 }
 
-int micro_instrs[100];
+int micro_instrs[128];
 
 void add(int &micro_instr, const string &s) {
 	int type = -1, pos = -1;
@@ -134,7 +134,7 @@ void process(ifstream &fin, ofstream &fout) {
 		cout << "[" << micro_instr << "]\n";
 	}
 
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 128; i++) {
 		for (int j = 28; j >= 0; j--) {
 			if (micro_instrs[i] >> j & 1) fout << '1';
 			else fout << '0';
