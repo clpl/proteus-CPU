@@ -43,11 +43,11 @@ void add(int &micro_instr, const string &s) {
 		}
 	}
 
-#define OFFSET0 29
-#define OFFSET1 23
-#define OFFSET2 15
-#define OFFSET3 12
-#define OFFSET4 8
+#define OFFSET0 30
+#define OFFSET1 24
+#define OFFSET2 16
+#define OFFSET3 13
+#define OFFSET4 9
 #define OFFSET5 6
 
 
@@ -97,13 +97,6 @@ void add(int &micro_instr, const string &s) {
 		}
 	}
 
-#undef OFFSET0
-#undef OFFSET1
-#undef OFFSET2
-#undef OFFSET3
-#undef OFFSET4
-#undef OFFSET5
-
 }
 
 void process(ifstream &fin, ofstream &fout) {
@@ -135,10 +128,12 @@ void process(ifstream &fin, ofstream &fout) {
 	}
 
 	for (int i = 0; i < 128; i++) {
-		for (int j = 28; j >= 0; j--) {
+		fout << "ADDR ";
+		fout.width(4); fout.fill('0');
+		fout << std::hex << i << "H\n";
+		for (int j = OFFSET0 - 1; j >= 0; j--) {
 			if (micro_instrs[i] >> j & 1) fout << '1';
 			else fout << '0';
-			fout << ',';
 		}
 		fout << '\n';
 	}
@@ -159,7 +154,7 @@ int main() {
 		exit(0);
 	}
 
-	ofstream fout("output.csv");
+	ofstream fout("output.txt");
 	if (!fout.is_open()) {
 		cerr << "No output file !" << endl;
 		exit(0);
