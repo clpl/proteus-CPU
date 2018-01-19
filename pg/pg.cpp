@@ -105,6 +105,10 @@ void process(ifstream &fin, ofstream &fout) {
 	int index = -1, micro_instr;
 	while (fin >> s) {
 		lowercase(s);
+		if (s.substr(0, 2) == "//") {
+			getline(fin, s);
+			fin >> s;
+		}
 		if (flag) {
 			index = 0;
 			int len = (int)s.size();
@@ -114,17 +118,19 @@ void process(ifstream &fin, ofstream &fout) {
 			}
 			flag = false;
 			micro_instr = 0;
-			cout << index << '\n';
+			cout << "--------------------\n";
+			cout << '<' << index << ">\n";
 		} else {
 			if (s == "end") {
 				micro_instrs[index] = micro_instr;
 				flag = true;
 				index = -1;
-			} else {
+				cout << "====================\n";
+			} else if (index >= 0) {
 				add(micro_instr, s);
+				cout << "[" << micro_instr << "]\n";
 			}
 		}
-		cout << "[" << micro_instr << "]\n";
 	}
 
 	for (int i = 0; i < 128; i++) {
