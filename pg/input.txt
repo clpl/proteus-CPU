@@ -60,7 +60,7 @@ end
 end
 
 000101
-	MEM_EN
+	MEM_CE
 	AR_EN
 	N:000110
 end
