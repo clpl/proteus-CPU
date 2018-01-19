@@ -298,3 +298,8 @@ end
   N:000000
 end
 
+//IRET
+011010
+	INT_EN
+	N:000000
+end
