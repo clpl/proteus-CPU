@@ -190,6 +190,15 @@ int ins_type_s(char ins, char *line) {
 	return 1;
 }
 
+int ins_stop() {
+	if (pos + 4 > MAX_SIZE) return 0;
+	instrs[pos++] = 0;
+	instrs[pos++] = 10;
+	instrs[pos++] = 0;
+	instrs[pos++] = 0;
+	return 1;
+}
+
 int translate(char *line) {
 //	puts("start");
 	while (line && *line == ' ') line++;
@@ -228,6 +237,10 @@ int translate(char *line) {
 		case 10:
 		case 11:
 			ret = ins_type_flag(ins, line);
+			break;
+
+		case 0:
+			ret = ins_stop();
 			break;
 
 		default:

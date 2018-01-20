@@ -7,3 +7,4 @@
 	lad cx, (1000)
 	sub cx, bx
 	lad cx, (1001)
+	stp
