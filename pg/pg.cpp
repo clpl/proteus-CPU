@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -103,9 +104,11 @@ void process(ifstream &fin, ofstream &fout) {
 	string s;
 	bool flag = true;
 	int index = -1, micro_instr;
+
+	memset(micro_instrs, 0xff, sizeof(micro_instrs));
 	while (fin >> s) {
 		lowercase(s);
-		if (s.substr(0, 2) == "//") {
+		while (s.substr(0, 2) == "//") {
 			getline(fin, s);
 			fin >> s;
 		}
