@@ -37,8 +37,8 @@ def run(filename):
     A = '000000'
     P = '000'
     N = '000000'
-    bus_in = '000'
-    bus_out = '0000'
+    bus_in = '111'
+    bus_out = '1111'
     cur_addr = '000000'
 
     for line in fin.readlines():
@@ -71,8 +71,8 @@ def run(filename):
                 A = '000000'
                 P = '000'
                 N = '000000'
-                bus_in = '000'
-                bus_out = '0000'
+                bus_in = '111'
+                bus_out = '1111'
                 cur_addr = '000000'
                 continue
             if line[1] == ':':
@@ -83,6 +83,8 @@ def run(filename):
                 elif line[0] == 'N':
                     N = line[2:8]
                 continue
+            if (line not in instr_lst) and (line not in ins_bus_in) and (line not in ins_bus_out):
+                print(line + ' 指令未找到！')
             active_instr.add(line)
 
     for cur_addr in sorted(list(all_instr.keys())):
