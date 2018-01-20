@@ -282,7 +282,7 @@ void output(FILE *fpo) {
 void output_asci(FILE* fpo) {
 	int i = 0;
 	while (i < pos) {
-		fprintf(fpo, "%#06x: ", i);
+		fprintf(fpo, "%#06x: ", i >> 1);
 		unsigned char x = instrs[i];
 		unsigned char ins = instrs[i + 1];
 		fprintf(fpo, "%02x %02x", ins, x);

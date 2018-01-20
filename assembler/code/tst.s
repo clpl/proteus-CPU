@@ -1,13 +1,9 @@
 ; testing program ^_^
-	lad ax, (1000)
-	lad bx, (2000)
-	irmov cx, -3
-	sub ax, bx
-	jc .L3
-	add ax cx
-	sto ax, (3000)
-	stp
-.L3:
-	add bx cx
-	sto bx, (3000)
-	stp
+	irmov ax, 123
+	irmov bx, 456
+	add ax, bx
+	sto ax, (1000)
+	xor ax, ax
+	lad cx, (1000)
+	sub cx, bx
+	lad cx, (1001)
