@@ -194,8 +194,8 @@ int ins_stop() {
 	if (pos + 4 > MAX_SIZE) return 0;
 	instrs[pos++] = 0;
 	instrs[pos++] = 10;
-	instrs[pos++] = 0;
-	instrs[pos++] = 0;
+	instrs[pos++] = 0xff;
+	instrs[pos++] = 0xff;
 	return 1;
 }
 

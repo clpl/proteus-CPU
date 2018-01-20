@@ -206,6 +206,7 @@ end
   LPC
   ALU_EN
   N:000000
+	A:100101
 end
 
 // JC
