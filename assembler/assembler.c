@@ -160,7 +160,7 @@ int ins_type_flag(char ins, char *line) {
 
 	char *dest = flags[flag_cnt].flag;
 	while (line && *line != ' ') *dest++ = *line++;
-	flags[flag_cnt++].index = pos + 1;
+	flags[flag_cnt++].index = pos + 2;
 
 	if (pos + 4 > MAX_SIZE) return 0;
 	instrs[pos++] = 0;
@@ -258,7 +258,7 @@ int replace_flags() {
 		if (index == -1) return 0;
 
 		int flag_index = flags[i].index;
-		int offset = index - flag_index;
+		int offset = (index - flag_index) >> 1;
 		
 		char v1 = offset >> 8, v0 = offset;
 		instrs[flag_index] = v0;

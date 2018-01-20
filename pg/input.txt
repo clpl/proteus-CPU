@@ -205,7 +205,6 @@ end
   PC_OUT_EN
   LPC
   ALU_EN
-  PCINC
   N:000000
 end
 
