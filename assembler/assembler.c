@@ -10,7 +10,7 @@
 int lines;
 char code[MAX_LINE][MAX_LINE_WIDTH];
 
-int pos;
+int pos, shift;
 char instrs[MAX_SIZE];
 
 #define MAX_MAP_NUM 100 
@@ -66,14 +66,14 @@ const char *ins_id[15] = {
 	"sto",		// sto rA, (Dest): rA => (Dest)
 	"lad",		// lad rA, (Src): (Src) => rA
 	"rrmov",	// rrmov rA, rB: rB => rA
-	"irmov",	// irmov rA, Src: (Src) => rA
+	"irmov",	// irmov rA, Src: Src => rA
 	"add",		// add rA, rB: rA + rB => rA
 	"sub",		// sub rA, rB: rA - rB => rA
 	"and",		// and rA, rB: rA & rB => rA
 	"xor",		// xor rA, rB: rA ^ rB => rA
 	"cla",		// cla
-	"jmp",		// jmp Offset: pc + Offset => pc
-	"jc",			// jc Offset: if C  pc + Offset => pc
+	"jmp",		// jmp .flag: .flag => pc
+	"jc",			// jc .flag: if C then .flag => pc 
 	"iret",		// iret
 	"push",		// push rA: rA => (sp - 2), sp - 1 => sp
 	"pop"			// pop rA: (sp) => rA, sp + 1 => sp
@@ -279,7 +279,7 @@ int assemble() {
 void output(FILE *fpo) {
 	int i = 0;
 	while (i < pos) {
-		fprintf(fpo, "ADDR %04XH\n", i >> 1);
+		fprintf(fpo, "ADDR %04XH\n", shift + (i >> 1));
 		unsigned char x = instrs[i], y = instrs[i + 1];
 		for (int j = 7; j >= 0; j--) {
 			if (y >> j & 1) fprintf(fpo, "1"); else fprintf(fpo, "0");
@@ -295,7 +295,7 @@ void output(FILE *fpo) {
 void output_asci(FILE* fpo) {
 	int i = 0;
 	while (i < pos) {
-		fprintf(fpo, "%#06x: ", i >> 1);
+		fprintf(fpo, "%#06x: ", shift + (i >> 1));
 		unsigned char x = instrs[i];
 		unsigned char ins = instrs[i + 1];
 		fprintf(fpo, "%02x %02x", ins, x);
@@ -315,13 +315,27 @@ int main(int argc, char *argv[]) {
 	FILE *fpi = NULL;
 	FILE *fpo1 = NULL;
 	FILE *fpo2 = NULL;
-	if (argc == 3 || argc == 4) {
+
+	if (argc == 2 || argc == 3) {
 		fpi = fopen(argv[1], "r"); if (!fpi) exit(0);
-		fpo1 = fopen(argv[2], "w"); if (!fpo1) exit(0);
-		if (argc == 4) {
-			fpo2 = fopen(argv[3], "w"); if (!fpo2) exit(0);
+		shift = 0;
+		if (argc == 3) {
+			int x = 0;
+			char *s = argv[2];
+			int len = strlen(s);
+			for (int i = 0; i < len; i++) {
+				if (!isdigit(s[i])) {
+					fprintf(stderr, "not a number !\n");
+					exit(0);
+				}
+				x = x * 10 + s[i] - '0';
+			}
+			shift = x;
 		}
-	}
+	} else exit(0);
+
+	fpo1 = fopen("ins_bin.txt", "w"); if (!fpo1) exit(0);
+	fpo2 = fopen("ins.txt", "w"); if (!fpo2) exit(0);
 
 	while (fgets(code[lines], MAX_LINE_WIDTH, fpi)) lines++;
 	init();
@@ -334,7 +348,7 @@ int main(int argc, char *argv[]) {
 	output(fpo1);
 	fclose(fpo1);
 
-	if (fpo2)	output_asci(fpo2);
+	output_asci(fpo2);
 	fclose(fpo2);
 
 	return 0;
