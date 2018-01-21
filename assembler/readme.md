@@ -20,7 +20,7 @@ and rA rB
 xor rA rB
 cla
 jmp .flag
-jc .flag
+jl .flag
 iret
 push rA
 pop rA

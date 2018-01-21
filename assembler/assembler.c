@@ -73,7 +73,7 @@ const char *ins_id[15] = {
 	"xor",		// xor rA, rB: rA ^ rB => rA
 	"cla",		// cla
 	"jmp",		// jmp .flag: .flag => pc
-	"jc",			// jc .flag: if C then .flag => pc 
+	"jl",			// jl .flag: if rA < rB then .flag => pc 
 	"iret",		// iret
 	"push",		// push rA: rA => (sp - 2), sp - 1 => sp
 	"pop"			// pop rA: (sp) => rA, sp + 1 => sp
