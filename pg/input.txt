@@ -296,6 +296,6 @@ end
 //IRET
 011010
 	IRET
-	PC_LPC
+	LPC
 	N:000000
 end

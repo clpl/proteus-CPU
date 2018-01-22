@@ -5,7 +5,7 @@ for i in range(len(terms)):
     terms[i] = terms[i].strip()
 instr_lst = terms[1:9]
 ins_bus_in = terms[11:16]
-ins_bus_out = terms[18:24]
+ins_bus_out = terms[18:25]
 
 all_instr = {}
 
