@@ -112,22 +112,42 @@ int find_reg(char *word) {
 	return -1;
 }
 
+int readint(char **src, char *dest1, char *dest2) {
+	int val = 0, sgn = 0;
+	while (*src && **src != ' ') (*src)++;
+	while (*src && **src == ' ') (*src)++;
+	if (**src == '-') sgn = 1, (*src)++;
+	int base = 10;
+	if (*src && **src == '0') {
+		(*src)++;
+		if (*src && **src == 'x') base = 16, (*src)++;
+	}
+	if (base == 10) {
+		while (*src && isdigit(**src)) {
+			val = val * 10 + **src - '0';
+			(*src)++;
+		}
+	} else {
+		while (*src && isxdigit(**src)) {
+			val <<= 4;
+			if (isdigit(**src)) val |= **src - 48;
+			else val |= **src - 55;
+			(*src)++;
+		}
+	}
+	if (sgn) val = -val;
+	(*dest1) = val >> 8;
+	(*dest2) = val;
+	return 1;
+}
+
 int ins_type_ri(char ins, char *line) {
 	while (line && *line == ' ') line++;
 	char rA = find_reg(line);
 	if (rA == -1) return 0;
 //puts("rA");
-	int val = 0, sgn = 0;
-	while (line && *line != ' ') line++;
-	while (line && *line == ' ') line++;
-	if (*line == '-') sgn = 1, line++;
-	while (line && isdigit(*line)) {
-		val = val * 10 + *line - '0';
-		line++;
-	}
-	if (sgn) val = -val;
-	char v1 = val >> 8;
-	char v0 = val;
+	char v1 = 0, v0 = 0;
+	readint(&line, &v1, &v0);
 //puts("instant");
 	if (pos + 4 > MAX_SIZE) return 0;
 	instrs[pos++] = rA;

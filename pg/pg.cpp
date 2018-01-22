@@ -56,14 +56,14 @@ void add(int &micro_instr, const string &s) {
 		micro_instr |= (1 << (OFFSET1 - pos - 1));
 
 	} else if (type == 1) {
-		for (int i = 3; i >= 0; i--) {
+		for (int i = 2; i >= 0; i--) {
 			if (pos >> i & 1) {
 				micro_instr |= (1 << (OFFSET3 + i));
 			}
 		}
 
 	} else if (type == 2) {
-		for (int i = 4; i >= 0; i--) {
+		for (int i = 3; i >= 0; i--) {
 			if (pos >> i & 1) {
 				micro_instr |= (1 << (OFFSET4 + i));
 			}
