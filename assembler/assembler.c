@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 #define MAX_LINE 1000
-#define MAX_LINE_WIDTH 32
+#define MAX_LINE_WIDTH 80
 #define MAX_SIZE 100000
 
 int lines;
@@ -114,8 +114,8 @@ int find_reg(char *word) {
 
 int readint(char **src, char *dest1, char *dest2) {
 	int val = 0, sgn = 0;
-	while (*src && **src != ' ') (*src)++;
-	while (*src && **src == ' ') (*src)++;
+	while (**src && **src != ' ') (*src)++;
+	while (**src == ' ') (*src)++;
 	if (**src == '-') sgn = 1, (*src)++;
 	int base = 10;
 	if (*src && **src == '0') {
@@ -123,12 +123,12 @@ int readint(char **src, char *dest1, char *dest2) {
 		if (*src && **src == 'x') base = 16, (*src)++;
 	}
 	if (base == 10) {
-		while (*src && isdigit(**src)) {
+		while (**src && isdigit(**src)) {
 			val = val * 10 + **src - '0';
 			(*src)++;
 		}
 	} else {
-		while (*src && isxdigit(**src)) {
+		while (**src && isxdigit(**src)) {
 			val <<= 4;
 			if (isdigit(**src)) val |= **src - 48;
 			else val |= **src - 55;
@@ -142,13 +142,13 @@ int readint(char **src, char *dest1, char *dest2) {
 }
 
 int ins_type_ri(char ins, char *line) {
-	while (line && *line == ' ') line++;
+	while (*line == ' ') line++;
 	char rA = find_reg(line);
 	if (rA == -1) return 0;
-//puts("rA");
+
 	char v1 = 0, v0 = 0;
 	readint(&line, &v1, &v0);
-//puts("instant");
+
 	if (pos + 4 > MAX_SIZE) return 0;
 	instrs[pos++] = rA;
 	instrs[pos++] = ins;
@@ -159,12 +159,12 @@ int ins_type_ri(char ins, char *line) {
 }
 
 int ins_type_rr(char ins, char *line) {
-	while (line && *line == ' ') line++;
+	while (*line == ' ') line++;
 	char rA = find_reg(line);
 	if (rA == -1) return 0;
 	
-	while (line && *line != ' ') line++;
-	while (line && *line == ' ') line++;
+	while (*line && *line != ' ') line++;
+	while (*line == ' ') line++;
 	char rB = find_reg(line);
 	if (rB == -1) return 0;
 
@@ -176,10 +176,10 @@ int ins_type_rr(char ins, char *line) {
 }
 
 int ins_type_flag(char ins, char *line) {
-	while (line && *line == ' ') line++;
+	while (*line == ' ') line++;
 
 	char *dest = flags[flag_cnt].flag;
-	while (line && *line != ' ') *dest++ = *line++;
+	while (*line && *line != ' ') *dest++ = *line++;
 	flags[flag_cnt++].index = pos + 2;
 
 	if (pos + 4 > MAX_SIZE) return 0;
@@ -192,7 +192,7 @@ int ins_type_flag(char ins, char *line) {
 }
 
 int ins_type_r(char ins, char *line) {
-	while (line && *line == ' ') line++;
+	while (*line == ' ') line++;
 
 	char rA = find_reg(line);
 	if (rA == -1) return 0;
@@ -220,20 +220,29 @@ int ins_stop() {
 }
 
 int translate(char *line) {
-//	puts("start");
-	while (line && *line == ' ') line++;
+	if (!line) return 0;
+	// comment
+	for (int i = 0; line[i]; i++) {
+		if (line[i] == ';') {
+			line[i] = 0;
+			break;
+		}
+	}
+	while (*line == ' ') line++;
+	if (!(*line)) return 1;  // return when encounter empty line
+
+	// flag
 	if (*line == '.') {
 		return add_map(line, pos);
 	}
-	if (*line == ';') return 1;
 
+	// operation code
 	char ins = find_ins(line);
 	if (ins == -1) return 0;
-	while (line && *line != ' ') line++;
-
-//	puts("instruction");
+	while (*line != ' ') line++;
 
 	int ret = 1;
+	// deal with different types
 	switch (ins) {
 		case 1:
 		case 2:
@@ -268,11 +277,11 @@ int translate(char *line) {
 			break;
 	}
 
-//	puts("finish");
 	return ret;
 }
 
 int replace_flags() {
+	// insert offsets to jmp and jl instructions
 	for (int i = 0; i < flag_cnt; i++) {
 		int index = find_map(flags[i].flag);
 		if (index == -1) return 0;
@@ -289,7 +298,6 @@ int replace_flags() {
 
 int assemble() {
 	for (int i = 0; i < lines; i++) {
-//		printf("line %d\n", i);
 		if (!translate(code[i])) return 0;
 	}
 	replace_flags();
@@ -336,12 +344,21 @@ int main(int argc, char *argv[]) {
 	FILE *fpo1 = NULL;
 	FILE *fpo2 = NULL;
 
-	if (argc == 2 || argc == 3) {
+	if (argc == 3 || argc == 4) {
+		// input file
 		fpi = fopen(argv[1], "r"); if (!fpi) exit(0);
+
+		// output files
+		char s[50];
+		strcpy(s, argv[2]); strcat(s, "_bin.txt");
+		fpo1 = fopen(s, "w"); if (!fpo1) exit(0);
+		strcpy(s, argv[2]); strcat(s, ".txt");
+		fpo2 = fopen(s, "w"); if (!fpo2) exit(0);
+
 		shift = 0;
-		if (argc == 3) {
+		if (argc == 4) {
 			int x = 0;
-			char *s = argv[2];
+			char *s = argv[3];
 			int len = strlen(s);
 			for (int i = 0; i < len; i++) {
 				if (!isdigit(s[i])) {
@@ -353,9 +370,6 @@ int main(int argc, char *argv[]) {
 			shift = x;
 		}
 	} else exit(0);
-
-	fpo1 = fopen("ins_bin.txt", "w"); if (!fpo1) exit(0);
-	fpo2 = fopen("ins.txt", "w"); if (!fpo2) exit(0);
 
 	while (fgets(code[lines], MAX_LINE_WIDTH, fpi)) lines++;
 	init();
