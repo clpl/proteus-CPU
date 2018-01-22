@@ -202,7 +202,6 @@ end
 end
 
 001101
-  PC_OUT_EN
   LPC
   ALU_EN
   N:000000
