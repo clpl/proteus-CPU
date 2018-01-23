@@ -15,7 +15,7 @@
 | PC         | 已完成  | DY   |
 | PSW        | 已完成  | DY   |
 | CLOCK      | 已完成  | CL   |
-| CONTROLLER | 困难   | ALL  |
+| CONTROLLER | 已完成  | ALL  |
 
 ![控制器](http://owvqyk7j0.bkt.clouddn.com/controller.PNG)
 
