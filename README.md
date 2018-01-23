@@ -43,14 +43,14 @@ __指令集__：
 | 3    | RRMOV R\_i, R\_j | R\_j -> R\_i                  |        | 03 @@       | 000111 |
 | 4    | IRMOV R\_i, XXXX | XXXX -> R\_i                  |        | 04 0@ $$ $$ | 001000 |
 | 5    | ADD R\_i, R\_j   | R\_i + R\_j -> R\_i           |        | 05 @@       | 110000 |
-| 6    | SUB R\_i, R\_j   | R\_i - R\_i -> R\_i           |        | 06 @@       | 110101 |
-| 7    | AND R\_i, R\_j   | R\_i & R\_j -> R\_i           |        | 07 @@       | 111010 |
-| 8    | XOR R\_i, R\_j   | R\_i ^ R\_j -> R\_i           |        | 08 @@       | 111111 |
-| 9    | CLA              | AC <- 0000H                   |        | 09 00       | 010000 |
-| 10   | JMP FLAG         | PC <- PC+offset               | 64KB   | 0A 00 $$ $$ | 001101 |
-| 11   | JL FLAG          | if R_i < R_j, PC <- PC+offset | 64KB   | 0B 00 $$ $$ | 001111 |
+| 6    | SUB R\_i, R\_j   | R\_i - R\_i -> R\_i           |        | 06 @@       | 110100 |
+| 7    | AND R\_i, R\_j   | R\_i & R\_j -> R\_i           |        | 07 @@       | 111000 |
+| 8    | XOR R\_i, R\_j   | R\_i ^ R\_j -> R\_i           |        | 08 @@       | 111100 |
+| 9    | CLA              | AC <- 0000H                   |        | 09 00       | 001111 |
+| 10   | JMP FLAG         | PC <- PC+offset               | 64KB   | 0A 00 $$ $$ | 001010 |
+| 11   | JL FLAG          | if R_i < R_j, PC <- PC+offset | 64KB   | 0B 00 $$ $$ | 100010 |
 | 12   | IRET             | 中断返回                          | 恢复现场   | 0C 00       | 011001 |
-| 13   | PUSH R\_i        | SP <- SP-1, (SP) <- R\_i      | 写一个机器字 | 0D 0@       | 010001 |
+| 13   | PUSH R\_i        | SP <- SP-1, (SP) <- R\_i      | 写一个机器字 | 0D 0@       | 010000 |
 | 14   | POP R\_i         | R\_i <- (SP), SP <- SP+1      |        | 0E 0@       | 010101 |
 
 @:寄存器指示符（0<=@<=3)
