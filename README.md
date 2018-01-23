@@ -131,9 +131,9 @@ REG\_BUS_IN[0..15] 接总线
 
 REG_CLK 时钟信号 上升沿
 
-IN\_SEL[0,1] 选择信号 从总线输入的使能 AC为0
+REG\_IN\_EN 选择信号在输入有效
 
-OUT\_SEL[0,1] 选择信号 输出到总线的使能
+REG\_OUT\_EN 选择信号在输出有效
 
 REG\_AC\_CLR 累加器AC清零
 
