@@ -12,10 +12,14 @@
 | REGISTER   | 已完成  | LSY  |
 | PC         | 已完成  | DY   |
 | PSW        | 已完成  | DY   |
-| CLOCK      | 忽略   | NONE |
+| CLOCK      | 忽略   | CL    |
 | CONTROLLER | 困难   | ALL  |
 
-![附图](http://owvqyk7j0.bkt.clouddn.com/proteus-cpu-all.png)
+![控制器](http://owvqyk7j0.bkt.clouddn.com/controller.PNG)
+
+![控制台](http://owvqyk7j0.bkt.clouddn.com/console.PNG)
+
+![数据通路](http://owvqyk7j0.bkt.clouddn.com/data_bus.PNG)
 
 
 # proteus-CPU
