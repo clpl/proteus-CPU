@@ -1,5 +1,7 @@
 微程序流程图：https://www.processon.com/diagraming/5a4f89e3e4b01acda58c3d8b
 
+[只读流程图](https://www.processon.com/view/5a4f89e3e4b01acda58c3d8b)
+
 微指令表：https://shimo.im/sheet/hZ38w8z0aB0NJl4N
 
 # 任务分配
@@ -12,7 +14,7 @@
 | REGISTER   | 已完成  | LSY  |
 | PC         | 已完成  | DY   |
 | PSW        | 已完成  | DY   |
-| CLOCK      | 忽略   | CL    |
+| CLOCK      | 已完成  | CL   |
 | CONTROLLER | 困难   | ALL  |
 
 ![控制器](http://owvqyk7j0.bkt.clouddn.com/controller.PNG)
@@ -105,6 +107,17 @@ CLK 全局时钟信号
 
 16位数据到BUS
 
+## CLOCK
+
+将原始的clk信号分为T1, T2信号交替产生
+
+### 输入
+
+RESET 置0后输入一个CLK信号, 再将其置1即可
+
+### 输出
+
+交替的T1, T2信号
 
 ## 寄存器组
 
@@ -170,10 +183,6 @@ PCINC与LPC不可同时为1
 
 W/R为写有效时，DBUS做输入；读有效时，DBUS做输出
 
-## 控制器流程
-
-T1把当前微程序存到微程序寄存器里，T2把微程序寄存器后六位，也就是下一个微程序地址存到一排寄存器里，同时这个步骤可以用p字段进行跳转
-
 ## PSW
 
 ### 端口
@@ -189,3 +198,11 @@ CLK：时钟脉冲，上升沿
 ### 优先级
 
 CLK > CLR > EN > IC
+
+## 控制器流程
+
+T1把当前微程序存到微程序寄存器里，T2把微程序寄存器后六位，也就是下一个微程序地址存到一排寄存器里，同时这个步骤可以用p字段进行跳转
+
+# 启动流程
+
+连接时钟信号, 将RESET先置0后置1即可, 可通过各个数码管观察到数据变化状态、流程状态
