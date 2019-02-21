@@ -1,3 +1,5 @@
+This repository is 32-bit CPU(microprogram) in Proteus.
+
 微程序流程图：https://www.processon.com/diagraming/5a4f89e3e4b01acda58c3d8b
 
 [只读流程图](https://www.processon.com/view/5a4f89e3e4b01acda58c3d8b)
